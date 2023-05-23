@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Text Transformer App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Custom styles */
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .app-header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .app-title {
+      font-size: 24px;
+      margin: 0;
+    }
+	
+	.app-description {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 20px;
+    }
+
+    .app-description h2 {
+      margin: 0;
+      font-size: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .form-container {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+	
+	.btn-container{
+	  display: flex;
+	}
+
+    .form-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .form-input {
+      width: 78%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .operation-button {
+      display: block;
+      width: 20%;
+      padding: 8px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .operation-button:hover {
+      background-color: #0056b3;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+	  margin-right: 10px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #007bff;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .result-container {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .history-container {
+      margin-top: 20px;
+    }
+
+    .history-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .history-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .history-list-item {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="app-header">
+      <h1 class="app-title">Text Transformer App - By Rohit Bajaj</h1>
+    </div>
+	<div class="container">
+      <div class="app-description">
+        <h2>About the App</h2>
+        <p>
+          The Text Transformer App is a simple Vue.js web application that allows users to convert text to uppercase, lowercase, capitalize, or title case. Users enter their text, select the desired transformation, and instantly see the transformed result. The app also keeps a history of past transformations.
+        </p>
+      </div>
+    <div class="container">
+      <div class="form-container">
+        <h2 class="form-title">Text Transformation</h2>
+        <label for="text-input">Enter text:</label>
+        <input id="text-input" v-model="userInput" type="text" class="form-input" placeholder="Enter text">
+		<div class="btn-container">
+        <button class="operation-button" @click="transformText('uppercase')">
+          <span v-if="currentOperation === 'uppercase' && isLoading" class="loading-spinner"></span>
+          Uppercase
+        </button>
+        <button class="operation-button" @click="transformText('lowercase')">
+          <span v-if="currentOperation === 'lowercase' && isLoading" class="loading-spinner"></span>
+          Lowercase
+        </button>
+        <button class="operation-button" @click="transformText('capitalize')">
+          <span v-if="currentOperation === 'capitalize' && isLoading" class="loading-spinner"></span>
+          Capitalize
+        </button>
+        <button class="operation-button" @click="transformText('title')">
+          <span v-if="currentOperation === 'title' && isLoading" class="loading-spinner"></span>
+          Title
+        </button>
+      </div>
+      <div class="result-container">
+        <p>{{ transformedText }}</p>
+      </div>
+      <div class="history-container">
+        <h2 class="history-title">History</h2>
+        <ul class="history-list">
+          <li v-for="(historyItem, index) in history" :key="index" class="history-list-item">{{ historyItem }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script>
+  <script>
+    // Vue.js code
+
+    new Vue({
+      el: '#app',
+      data: {
+        userInput: '',
+        transformedText: '',
+        history: [],
+        currentOperation: '',
+        isLoading: false
+      },
+      methods: {
+        transformText: function(operation) {
+          this.isLoading = true;
+          this.currentOperation = operation;
+
+          setTimeout(() => {
+            switch (operation) {
+              case 'uppercase':
+                this.transformedText = this.userInput.toUpperCase();
+                break;
+              case 'lowercase':
+                this.transformedText = this.userInput.toLowerCase();
+                break;
+              case 'capitalize':
+                this.transformedText = this.capitalizeText(this.userInput);
+                break;
+              case 'title':
+                this.transformedText = this.titleCaseText(this.userInput);
+                break;
+              default:
+                break;
+            }
+
+            // Add history item with timestamp
+            var historyItem = {
+              text: this.userInput,
+              transformation: this.currentOperation,
+              result: this.transformedText,
+              timestamp: new Date().toLocaleString()
+            };
+            this.history.unshift(historyItem);
+
+            this.isLoading = false;
+          }, 1000);
+        },
+        capitalizeText: function(text) {
+          return text.replace(/(^|\s)\S/g, function(match) {
+            return match.toUpperCase();
+          });
+        },
+        titleCaseText: function(text) {
+          return text.toLowerCase().split(' ').map(function(word) {
+            return word.replace(word[0], word[0].toUpperCase());
+          }).join(' ');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
