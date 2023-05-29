@@ -12,3 +12,6 @@ steps:
     args:
       - 'push'
       - 'gcr.io/$PROJECT_ID/text-transformer'
+options:
+  logging:
+    cloudLogging: CLOUD_LOGGING_ONLY
