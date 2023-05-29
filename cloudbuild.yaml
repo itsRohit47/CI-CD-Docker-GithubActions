@@ -4,14 +4,15 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/text-transformer'
+      - 'gcr.io/$PROJECT_ID/your-image-name'
       - '.'
 
   # Step 2: Push the Docker image to GCR
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/text-transformer'
+      - 'gcr.io/$PROJECT_ID/your-image-name'
+
 options:
   logging:
-    cloudLogging: 'CLOUD_LOGGING_ONLY'
+    none: {}
