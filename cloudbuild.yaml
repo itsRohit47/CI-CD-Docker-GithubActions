@@ -7,4 +7,5 @@ steps:
     entrypoint: "npm"
     args: ["test"]
 
-logging: LEGACY
+options:
+  logging: LEGACY
