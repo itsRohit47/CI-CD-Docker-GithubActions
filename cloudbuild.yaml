@@ -10,6 +10,11 @@ steps:
 options:
   logging: CLOUD_LOGGING_ONLY
 
-cleanup:
-  artifacts:
-    - "gcr.io/$PROJECT_ID/text-transformer:latest"
+# Cleanup step
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      # Delete the Docker image
+      gcloud container images delete gcr.io/$PROJECT_ID/text-transformer:latest --force-delete-tags --quiet
