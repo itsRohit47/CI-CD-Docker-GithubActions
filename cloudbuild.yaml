@@ -23,8 +23,8 @@ steps:
       - 'deployment/text-transformer-deployment'
       - 'text-transformer=gcr.io/$PROJECT_ID/text-transformer:$COMMIT_SHA'
     env:
-      - 'CLOUDSDK_COMPUTE_ZONE=your-compute-zone'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=your-cluster-name'
+      - 'CLOUDSDK_COMPUTE_ZONE=australia-southeast2-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cost-optimized-cluster-1'
 images:
   - 'gcr.io/$PROJECT_ID/text-transformer'
 options:
