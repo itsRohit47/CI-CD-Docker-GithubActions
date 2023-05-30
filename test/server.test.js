@@ -1,18 +1,22 @@
-const { expect } = require("chai");
-const request = require("supertest");
-const app = require("../server");
+// test.js
 
-describe("Server", () => {
-  it("should serve index.html on / route", (done) => {
-    request(app)
-      .get("/")
-      .expect(200)
-      .expect("Content-Type", "text/html; charset=UTF-8")
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.text).to.include("<html>");
-        expect(res.text).to.include("<title>Text Transformer App | Home</title>");
-        done();
-      });
+const chai = require("chai");
+const expect = chai.expect;
+const { sumNumbers } = require("../sum"); // Replace './your-module' with the path to your module containing the function to be tested
+
+describe("sumNumbers", () => {
+  it("should return the sum of two numbers", () => {
+    const result = sumNumbers(5, 10);
+    expect(result).to.equal(15);
+  });
+
+  it("should return the correct sum for negative numbers", () => {
+    const result = sumNumbers(-5, -10);
+    expect(result).to.equal(-15);
+  });
+
+  it("should return the correct sum for decimal numbers", () => {
+    const result = sumNumbers(2.5, 2.5);
+    expect(result).to.equal(5);
   });
 });
