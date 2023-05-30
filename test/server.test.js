@@ -11,7 +11,7 @@ describe("Server", () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.text).to.include("<html>");
-        expect(res.text).to.include("<title>Text Transformer App</title>");
+        expect(res.text).to.include("<title>Text Transformer App | Home</title>");
         done();
       });
   });
