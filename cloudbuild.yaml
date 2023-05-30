@@ -4,13 +4,13 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/text-transformer'
+      - 'gcr.io/$PROJECT_ID/text-transformer:$COMMIT_SHA'
       - '.'
   - name: 'gcr.io/cloud-builders/docker'
     id: Push
     args:
       - 'push'
-      - 'gcr.io/$PROJECT_ID/text-transformer'
+      - 'gcr.io/$PROJECT_ID/text-transformer:$COMMIT_SHA'
   - name: 'gcr.io/$PROJECT_ID/text-transformer'
     id: Test
     entrypoint: npm
