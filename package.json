@@ -1,5 +1,20 @@
 {
+  "name": "text-transformer",
+  "version": "1.0.0",
+  "description": "a simple text-transformer",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha test/*.test.js"
+  },
+  "author": "Rohit Bajaj",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.3",
+    "chai": "^4.3.4",
+    "supertest": "^6.1.6"
   }
 }
