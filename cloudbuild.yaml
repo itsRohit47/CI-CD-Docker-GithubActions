@@ -11,7 +11,7 @@ steps:
     args:
       - 'push'
       - 'gcr.io/$PROJECT_ID/text-transformer:$COMMIT_SHA'
-  - name: 'gcr.io/$PROJECT_ID/text-transformer'
+  - name: 'gcr.io/$PROJECT_ID/text-transformer:$COMMIT_SHA'
     id: Test
     entrypoint: npm
     args: ['test']
