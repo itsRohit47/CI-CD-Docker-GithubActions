@@ -1,4 +1,4 @@
-# Text Transformer App - just to learn bit of docker, CI/CD, cloud and software testing
+# Text Transformer App - just to learn a bit of Containerisation, CI/CD, Cloud and Software testing
 
 The Text Transformer App is a web application built with Vue.js that allows users to perform various text transformations on their input. Users can convert text to uppercase, lowercase, capitalize the first letter of each word, or transform text to title case.
 
